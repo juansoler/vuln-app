@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  vulnapp:
+    build: .
+    container_name: vulnapp
+    restart: unless-stopped
+    ports:
+      # VULNERABLE: Puerto expuesto directamente al host
+      - "8080:3000"
+    environment:
+      - DB_PATH=/data/data.db
+      - APP_SECRET=supersecreto-inseguro
+      - NODE_ENV=production
+      - API_KEY=vulnerable-api-key-12345
+    volumes:
+      - ./data:/data
